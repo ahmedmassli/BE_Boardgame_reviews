@@ -1,0 +1,43 @@
+{
+  "name": "be-nc-games",
+  "version": "1.0.0",
+  "description": "bc-nc-games",
+  "main": "listen.js",
+  "scripts": {
+    "seed-prod": "NODE_ENV=production node ./seeders/seedProduction.js",
+    "prod": "NODE_ENV=production node index.ts",
+    "seed-dev": "NODE_ENV=development node ./seeders/seedDevelopment.js",
+    "start": "node listen.js",
+    "seed-test": "NODE_ENV=test node ./seeders/seedTestDatabase.js",
+    "test": "NODE_ENV=test jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/northcoders/be-nc-games.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/northcoders/be-nc-games/issues"
+  },
+  "homepage": "https://github.com/northcoders/be-nc-games#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "pg": "^8.14.1",
+    "pg-format": "^1.0.4"
+  },
+  "devDependencies": {
+    "husky": "^8.0.2",
+    "jest": "^27.5.1",
+    "jest-extended": "^2.0.0",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended/all"
+    ]
+  }
+}
