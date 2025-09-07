@@ -5,7 +5,6 @@
   "main": "listen.js",
   "scripts": {
     "seed-prod": "NODE_ENV=production node ./seeders/seedProduction.js",
-    "prod": "NODE_ENV=production node index.ts",
     "seed-dev": "NODE_ENV=development node ./seeders/seedDevelopment.js",
     "start": "node listen.js",
     "seed-test": "NODE_ENV=test node ./seeders/seedTestDatabase.js",

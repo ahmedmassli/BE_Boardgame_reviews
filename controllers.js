@@ -7,6 +7,7 @@ const {
   changeVotes,
   fetchUsers,
   fetchReviewsByQuery,
+  fetchReviewsByQueryReformed,
 } = require("./models");
 
 function getCategories(request, response, next) {
@@ -115,7 +116,7 @@ function getReviewQuery(request, response, next) {
         next(err);
       });
   } else {
-    fetchReviewsByQuery(category, sort_by, order)
+    fetchReviewsByQueryReformed(category, sort_by, order)
       .then((revData) => {
         const obj = { revData: revData };
         response.send(obj);

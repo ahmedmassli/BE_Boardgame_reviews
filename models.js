@@ -199,13 +199,48 @@ function fetchReviewsByQuery(category, sort_by, order) {
         SELECT reviews.owner, reviews.title, reviews.review_body, reviews.review_id, reviews.review_img_url, reviews.category, reviews.created_at,reviews.votes,reviews.designer,CAST(COUNT(comments.review_id) AS int) AS comment_count
         FROM reviews
         LEFT JOIN comments ON comments.review_id = reviews.review_id
-        GROUP BY reviews.review_id ;
+        GROUP BY reviews.review_id 
         `
       )
       .then((fetchCategories) => {
         return fetchCategories.rows;
       });
   }
+
+  queryString += `;`;
+
+  return db.query(queryString, queryValues).then((result) => {
+    const revs = result.rows;
+    if (result.rowCount === 0) {
+      return Promise.reject("not found");
+    }
+    return revs;
+  });
+}
+
+function fetchReviewsByQueryReformed(category, sort_by, order) {
+  const queryValues = [];
+
+  let queryString = `
+  SELECT reviews.owner, reviews.title, reviews.review_body, reviews.review_id, reviews.review_img_url, reviews.category, reviews.created_at,reviews.votes,reviews.designer,CAST(COUNT(comments.review_id) AS int) AS comment_count
+  FROM reviews
+  LEFT JOIN comments ON comments.review_id = reviews.review_id
+                `;
+
+  if (category !== undefined && category !== "") {
+    queryValues.push(category);
+    queryString += `WHERE category=$1`;
+  }
+
+  queryString += `
+  GROUP BY reviews.review_id`;
+
+  const validSortColumns = ["created_at", "votes", "comment_count"];
+  const sortColumn = validSortColumns.includes(sort_by) ? sort_by : "votes";
+
+  const sortOrder = order && order.toUpperCase() === "ASC" ? "ASC" : "DESC";
+
+  queryString += ` ORDER BY ${sortColumn} ${sortOrder};`;
 
   queryString += `;`;
 
@@ -227,4 +262,5 @@ module.exports = {
   changeVotes,
   fetchUsers,
   fetchReviewsByQuery,
+  fetchReviewsByQueryReformed,
 };
