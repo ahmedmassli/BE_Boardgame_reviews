@@ -242,8 +242,6 @@ function fetchReviewsByQueryReformed(category, sort_by, order) {
 
   queryString += ` ORDER BY ${sortColumn} ${sortOrder};`;
 
-  queryString += `;`;
-
   return db.query(queryString, queryValues).then((result) => {
     const revs = result.rows;
     if (result.rowCount === 0) {
