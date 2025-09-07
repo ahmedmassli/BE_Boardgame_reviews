@@ -106,25 +106,14 @@ function getReviewQuery(request, response, next) {
   const sort_by = request.query.sort_by;
   const order = request.query.order;
 
-  if (!category) {
-    fetchReviews()
-      .then((revData) => {
-        const obj = { revData: revData };
-        response.send(obj);
-      })
-      .catch((err) => {
-        next(err);
-      });
-  } else {
-    fetchReviewsByQueryReformed(category, sort_by, order)
-      .then((revData) => {
-        const obj = { revData: revData };
-        response.send(obj);
-      })
-      .catch((err) => {
-        next(err);
-      });
-  }
+  fetchReviewsByQueryReformed(category, sort_by, order)
+    .then((revData) => {
+      const obj = { revData: revData };
+      response.send(obj);
+    })
+    .catch((err) => {
+      next(err);
+    });
 }
 
 module.exports = {
