@@ -227,7 +227,7 @@ function fetchReviewsByQueryReformed(category, sort_by, order) {
   LEFT JOIN comments ON comments.review_id = reviews.review_id
                 `;
 
-  if (category !== undefined && category !== "") {
+  if (category !== undefined && category !== "All") {
     queryValues.push(category);
     queryString += `WHERE category=$1`;
   }
@@ -238,7 +238,7 @@ function fetchReviewsByQueryReformed(category, sort_by, order) {
   const validSortColumns = ["created_at", "votes", "comment_count"];
   const sortColumn = validSortColumns.includes(sort_by) ? sort_by : "votes";
 
-  const sortOrder = order && order.toUpperCase() === "ASC" ? "ASC" : "DESC";
+  const sortOrder = order && order === "ASC" ? "ASC" : "DESC";
 
   queryString += ` ORDER BY ${sortColumn} ${sortOrder};`;
 
