@@ -453,7 +453,7 @@ describe("get /api/users", () => {
             username: "mallionaire",
             name: "haz",
             avatar_url:
-              "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg",
+              "https://toppng.com/uploads/preview/toon-link-phantom-hourglass-legend-of-zelda-phantom-hourglass-link-11563545402usbmnejrj7.png",
           },
           {
             username: "philippaclaire9",
@@ -471,7 +471,7 @@ describe("get /api/users", () => {
             username: "dav3rid",
             name: "dave",
             avatar_url:
-              "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png",
+              "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/f63a/live/32ec9db0-df2f-11f0-aae2-2191c0e48a3b.jpg.webp",
           },
         ]);
       });
@@ -584,4 +584,87 @@ describe("get /api/reviews/:review_id for query", () => {
       });
   });
 });
-// PATCH /api/reviews/:review_id no comments test review_id=4 has no comments adjust the test for ittt
+
+describe("POST /api/users", () => {
+  test("201: responds with the newly created user", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        username: "rupture53",
+        name: "Thomas",
+        avatar_url:
+          "https://avatars2.githubusercontent.com/u/24394918?s=400&v=4",
+      })
+      .expect(201)
+      .then(({ body }) => {
+        expect(body).toEqual({
+          user: {
+            username: "rupture53",
+            name: "Thomas",
+            avatar_url:
+              "https://avatars2.githubusercontent.com/u/24394918?s=400&v=4",
+          },
+        });
+      });
+  });
+
+  test("400: responds with error when required fields are missing", () => {
+    return request(app)
+      .post("/api/users")
+      .send({ username: "missingfields" })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("missing input");
+      });
+  });
+
+  test("409: responds with error when username already exists", () => {
+    return request(app)
+      .post("/api/users")
+      .send({
+        username: "mallionaire",
+        name: "Haz",
+        avatar_url: "http://example.com",
+      })
+      .expect(409)
+      .then(({ body }) => {
+        expect(body.msg).toBe("username already exists");
+      });
+  });
+});
+
+describe("GET /api/users", () => {
+  test("200: responds with an array of users", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body }) => {
+        expect(Array.isArray(body)).toBe(true);
+        expect(body.length).toBeGreaterThan(0);
+
+        body.forEach((user) => {
+          expect(user).toEqual(
+            expect.objectContaining({
+              username: expect.any(String),
+              name: expect.any(String),
+              avatar_url: expect.any(String),
+            })
+          );
+        });
+      });
+  });
+
+  test("200: includes known seeded user", () => {
+    return request(app)
+      .get("/api/users")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toContainEqual(
+          expect.objectContaining({
+            username: "mallionaire",
+            name: "haz",
+          })
+        );
+      });
+  });
+});

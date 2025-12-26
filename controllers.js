@@ -6,6 +6,7 @@ const {
   addCommentsByUsername,
   changeVotes,
   fetchUsers,
+  addUserModel,
   fetchReviewsByQuery,
   fetchReviewsByQueryReformed,
 } = require("./models");
@@ -101,6 +102,20 @@ function getUsers(request, response, next) {
     });
 }
 
+function addUser(req, res, next) {
+  const { username, name, avatar_url } = req.body;
+
+  if (!username || !name || !avatar_url) {
+    return res.status(400).send({ msg: "missing input" });
+  }
+
+  addUserModel(username, name, avatar_url)
+    .then((user) => {
+      res.status(201).send({ user });
+    })
+    .catch(next);
+}
+
 function getReviewQuery(request, response, next) {
   const category = request.query.category;
   const sort_by = request.query.sort_by;
@@ -124,5 +139,6 @@ module.exports = {
   getRequestInfo,
   updateReview,
   getUsers,
+  addUser,
   getReviewQuery,
 };

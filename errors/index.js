@@ -19,6 +19,8 @@ exports.handlePSQL400s = (err, req, res, next) => {
     res.status(400).send({ msg: "missing input" });
   } else if (err.code === "23503") {
     res.status(404).send({ msg: "not found" });
+  } else if (err.code === "23505") {
+    res.status(409).send({ msg: "username already exists" });
   } else {
     next(err);
   }

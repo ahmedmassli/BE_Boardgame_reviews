@@ -149,6 +149,22 @@ function fetchUsers() {
     });
 }
 
+function addUserModel(username, name, avatar_url) {
+  return db
+    .query(
+      `
+        INSERT INTO users ( username, name, avatar_url)
+        VALUES ($1, $2, $3)
+        RETURNING *
+        ;
+        `,
+      [username, name, avatar_url]
+    )
+    .then((result) => {
+      return result.rows[0];
+    });
+}
+
 function fetchReviewsByQuery(category, sort_by, order) {
   const queryValues = [];
 
@@ -259,6 +275,7 @@ module.exports = {
   addCommentsByUsername,
   changeVotes,
   fetchUsers,
+  addUserModel,
   fetchReviewsByQuery,
   fetchReviewsByQueryReformed,
 };

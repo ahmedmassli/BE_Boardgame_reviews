@@ -72,7 +72,7 @@ CREATE TABLE reviews (
       [
         "mallionaire",
         "haz",
-        "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg",
+        "https://toppng.com/uploads/preview/toon-link-phantom-hourglass-legend-of-zelda-phantom-hourglass-link-11563545402usbmnejrj7.png",
       ],
       [
         "philippaclaire9",
@@ -87,7 +87,7 @@ CREATE TABLE reviews (
       [
         "dav3rid",
         "dave",
-        "https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png",
+        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/f63a/live/32ec9db0-df2f-11f0-aae2-2191c0e48a3b.jpg.webp",
       ],
     ];
 
