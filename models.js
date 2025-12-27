@@ -77,9 +77,11 @@ function fetchCommentsByReviewId(review_id) {
   return db
     .query(
       `
-        SELECT comments.comment_id, comments.votes, comments.created_at, comments.author, comments.body, comments.review_id
+        SELECT comments.comment_id, comments.votes, comments.created_at, comments.author, comments.body, comments.review_id,users.avatar_url
         FROM comments
-        WHERE review_id=$1 ORDER BY comments.created_at DESC;
+        INNER JOIN users ON comments.author = users.username
+        WHERE review_id=$1 
+        ORDER BY comments.created_at DESC;
         `,
       queryParams
     )
