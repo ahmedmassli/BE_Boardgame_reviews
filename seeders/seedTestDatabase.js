@@ -87,7 +87,7 @@ CREATE TABLE reviews (
       [
         "dav3rid",
         "dave",
-        "https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/f63a/live/32ec9db0-df2f-11f0-aae2-2191c0e48a3b.jpg.webp",
+        "https://static.wikia.nocookie.net/mrmen/images/5/51/Funny.png/revision/latest?cb=20180719130558",
       ],
     ];
 
