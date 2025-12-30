@@ -116,7 +116,7 @@ async function seedDevelopment() {
       [
         "jessjelly",
         "Jess Jelly",
-        "https://vignette.wikia.nocookie.net/mrmen/images/4/4f/MR_JELLY_4A.jpg/revision/latest?cb=20180104121141",
+        "https://static.wikia.nocookie.net/mrmen/images/5/51/Funny.png/revision/latest?cb=20180719130558",
       ],
     ];
 
